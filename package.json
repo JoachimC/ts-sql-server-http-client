@@ -1,0 +1,39 @@
+{
+  "name": "ts-sql-server-http-client",
+  "version": "0.0.0-dev",
+  "description": "",
+  "keywords": [],
+  "main": "out/index.js",
+  "types": "out/index.d.ts",
+  "author": {
+    "name": "Joachim Chapman",
+    "email": "jc@quack.zone",
+    "url": "https://github.com/JoachimC"
+  },
+  "license": "UNLICENSED",
+  "scripts": {
+    "firsttime": "npm install",
+    "prepublish": "yarn run build",
+    "lint": "tslint -p ./tsconfig.json --type-check",
+    "prebuild": "rimraf ./out",
+    "build": "tsc -p tsconfig.build.json",
+    "run": "yarn run build && node ./out/index.js"
+  },
+  "dependencies": {
+    "tedious": "^2.0.0",
+    "typed-rest-client": "^0.12.0"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.1",
+    "tslint": "5.7.0",
+    "tslint-config-ikatyang": "2.4.0",
+    "typescript": "2.5.2",
+    "yarn": "^1.0.0"
+  },
+  "engines": {
+    "node": ">= 6"
+  },
+  "files": [
+    "/out/**/*"
+  ]
+}
