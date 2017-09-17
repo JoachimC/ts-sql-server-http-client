@@ -20,10 +20,13 @@
     "run": "yarn run build && node ./out/index.js"
   },
   "dependencies": {
+    "readline-sync": "^1.4.7",
     "tedious": "^2.0.0",
     "typed-rest-client": "^0.12.0"
   },
   "devDependencies": {
+    "@types/readline-sync": "^1.4.2",
+    "@types/tedious": "^1.8.31",
     "rimraf": "^2.6.1",
     "tslint": "5.7.0",
     "tslint-config-ikatyang": "2.4.0",

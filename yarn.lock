@@ -2,6 +2,20 @@
 # yarn lockfile v1
 
 
+"@types/node@*":
+  version "8.0.28"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.28.tgz#86206716f8d9251cf41692e384264cbd7058ad60"
+
+"@types/readline-sync@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@types/readline-sync/-/readline-sync-1.4.2.tgz#516b5f4f250534062b6bb08ae8367a088dcf739f"
+
+"@types/tedious@^1.8.31":
+  version "1.8.31"
+  resolved "https://registry.yarnpkg.com/@types/tedious/-/tedious-1.8.31.tgz#1eee03ffd4c4a1fe83d8499e6ce3db548867a58f"
+  dependencies:
+    "@types/node" "*"
+
 ansi-regex@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-2.1.1.tgz#c3b33ab5ee360d86e0e628f0468ae7ef27d654df"
@@ -198,6 +212,10 @@ readable-stream@^2.0.5, readable-stream@^2.2.6:
     safe-buffer "~5.1.1"
     string_decoder "~1.0.3"
     util-deprecate "~1.0.1"
+
+readline-sync@^1.4.7:
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/readline-sync/-/readline-sync-1.4.7.tgz#001bfdd4c06110c3c084c63bf7c6a56022213f30"
 
 regenerator-runtime@^0.11.0:
   version "0.11.0"
