@@ -2,6 +2,7 @@
   "extends": "tslint-config-ikatyang",
   "rules": {
     "no-console": false,
-    "object-curly-spacing": false
+    "object-curly-spacing": false,
+    "max-line-length": 150
   }
 }
