@@ -17,9 +17,9 @@ export function ask_for_basic_authentication(template_credentials?: BasicAuthent
   return `Basic ${auth_string}`;
 }
 
-export function call_service(template_option: Http.RequestOptions, authenticate?: () => string): Promise<string> {
+export function call_service(template_options: Http.RequestOptions, authenticate?: () => string): Promise<string> {
 
-  const run_options = {...template_option, protocol: 'https:'};
+  const run_options = {...template_options, protocol: 'https:'};
 
   if (authenticate) {
     run_options.auth = authenticate();
