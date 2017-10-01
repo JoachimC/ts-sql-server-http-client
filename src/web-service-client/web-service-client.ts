@@ -17,13 +17,15 @@ export function ask_for_basic_authentication(template_credentials?: BasicAuthent
   return `Basic ${auth_string}`;
 }
 
-export function call_service(config: Http.RequestOptions, authenticate?: () => string) {
+export function call_service(template_option: Http.RequestOptions, authenticate?: () => string): Promise<string> {
+
+  const run_options = {...template_option, protocol: 'https:'};
 
   if (authenticate) {
-    config.auth = authenticate();
+    run_options.auth = authenticate();
   }
 
-  const request = Https.request(config, response => {
+  const request = Https.request(run_options, response => {
     const chunks: any[] = [];
     response.on('data', chunk => {
       chunks.push(chunk);

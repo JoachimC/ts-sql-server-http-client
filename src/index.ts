@@ -12,7 +12,6 @@ const sql_config_defaults: Tedious.ConnectionConfig = {
 const web_service_options: Http.RequestOptions = {
   method: 'GET',
   hostname: 'jsonplaceholder.typicode.com',
-  protocol: 'https:',
   path: '/posts',
 };
 
@@ -20,15 +19,15 @@ const web_service_default_credentials: WebClient.BasicAuthenticationCredentials 
 
 const sql_config = Sql.ask_user_for_sql_config(sql_config_defaults);
 const basic_credentials = WebClient.ask_for_basic_authentication(web_service_default_credentials);
-const authentication = () => basic_credentials;
 
-Sql.connect(sql_config)
-  .then(connection => {
+Promise
+  .all([Sql.connect(sql_config), WebClient.call_service(web_service_options, () => basic_credentials)])
+  .then(([sql_connection, web_service_response]) => {
+
     console.log(`connected to server ${sql_config.server}`);
+    console.log(`web service response:\n${web_service_response}`);
 
-    WebClient.call_service(web_service_options, authentication);
-
-    connection.close();
-    connection.removeAllListeners();
+    sql_connection.close();
+    sql_connection.removeAllListeners();
   })
   .catch(console.error);
