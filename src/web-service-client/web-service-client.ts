@@ -17,7 +17,7 @@ export function ask_for_basic_authentication(template_credentials?: BasicAuthent
   return `Basic ${auth_string}`;
 }
 
-export function call_service(template_options: Http.RequestOptions, authenticate?: () => string): Promise<string> {
+export function call_service(template_options: Http.RequestOptions, authenticate?: () => string, post_data?: string): Promise<string> {
 
   const run_options = {...template_options, protocol: 'https:'};
 
@@ -25,17 +25,37 @@ export function call_service(template_options: Http.RequestOptions, authenticate
     run_options.auth = authenticate();
   }
 
-  const request = Https.request(run_options, response => {
-    const chunks: any[] = [];
-    response.on('data', chunk => {
-      chunks.push(chunk);
+  // credit to https://stackoverflow.com/a/38543075
+  return new Promise((resolve, reject) => {
+    const request = Https.request(run_options, response => {
+
+      if ((!response.statusCode) || (response.statusCode < 200 || response.statusCode >= 300)) {
+        return reject(new Error(`statusCode={response.statusCode}`));
+      }
+
+      const chunks: any[] = [];
+      response.on('data', chunk => {
+        chunks.push(chunk);
+      });
+
+      response.on('end', () => {
+
+        try {
+          const body = (Buffer.concat(chunks)).toString();
+          resolve(body);
+        } catch (e) {
+          reject(e);
+        }
+      });
     });
 
-    response.on('end', () => {
-      const body = Buffer.concat(chunks);
-      console.log(body.toString());
+    request.on('error', err => {
+      reject(err);
     });
+    if (post_data) {
+      request.write(post_data);
+    }
+
+    request.end();
   });
-
-  request.end();
 }
